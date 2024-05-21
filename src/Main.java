@@ -16,12 +16,12 @@ public class Main {
             System.out.println("7. Importar datos");
             System.out.println("8. Exportar datos");
             System.out.println("9. Salir");
-            menu = Leer.leerEntero("Que quieres hacer?");
+            menu = Leer.leerEntero("Que quieres hacer? ");
 
             if (menu == 1){
                 String continuar="";
                 do{
-                    String nom = Leer.leerTexto("Nombre del contacto:");
+                    String nom = Leer.leerTexto("Nombre del contacto: ");
                     int numero = Leer.leerEntero("Numero del contacto: ");
                     Contacto contacto = new Contacto(nom, numero);
                     contactos.add(contacto);
@@ -30,7 +30,7 @@ public class Main {
             }
             if (menu == 2){
                 String nombreBuscado = Leer.leerTexto("Escribe el nombre del contacto que quieres consultar ");
-                Contacto.consultarContacto(contactos, nombreBuscado);
+                System.out.println(Contacto.consultarContacto(contactos, nombreBuscado));
             }
             if (menu == 3){
                 System.out.println("La agenda tiene "+ contactos.size()+" amigos grabados");
@@ -63,6 +63,15 @@ public class Main {
                     int nuevoNumero = Leer.leerEntero("Indica el nuevo numero ");
                     contactos.get(modificar).setNumero(nuevoNumero);
                 }
+            }
+            if (menu ==7){
+                String archivosImportar = Leer.leerTexto("Ingrese el nombre del archivo que quieres importar: ");
+                contactos = Contacto.importarContactos(archivosImportar);
+
+            }
+            if (menu ==8){
+                String ArchivosExportar = Leer.leerTexto("Ingrese el nombre del archivo para exportar: ");
+                Contacto.exportarContactos(contactos, ArchivosExportar);
             }
             if (menu==9){
                 break;

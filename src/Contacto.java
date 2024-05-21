@@ -32,10 +32,7 @@ public class Contacto {
 
     @Override
     public String toString() {
-        return "Contacto{" +
-                "nombre='" + nombre + '\'' +
-                ", numero=" + numero +
-                '}';
+        return "nombre= " + nombre + ", numero=" + numero;
     }
     public static Contacto consultarContacto(ArrayList<Contacto> contactos, String nombre) {
         for (Contacto contacto : contactos) {
@@ -45,4 +42,38 @@ public class Contacto {
         }
         return null;
     }
+    public static ArrayList<Contacto> importarContactos(String nombreArchivo) {
+        ArrayList<Contacto> contactos = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(nombreArchivo)))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes.length == 2) {
+                    try {
+                        String nombre = partes[0];
+                        int telefono = Integer.parseInt(partes[1]);
+                        contactos.add(new Contacto(nombre, telefono));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error al convertir el teléfono a entero: " + partes[1]);
+                    }
+                }
+            }
+            System.out.println("Contactos importados desde " + nombreArchivo);
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return contactos;
+    }
+    public static void exportarContactos(ArrayList<Contacto> contactos, String nombreArchivo) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nombreArchivo)))) {
+            for (Contacto contacto : contactos) {
+                bw.write(contacto.toString());
+                bw.newLine();
+            }
+            System.out.println("Contactos exportados a " + nombreArchivo);
+        } catch (IOException e) {
+            System.err.println("Error al escribir el archivo: " + e.getMessage());
+        }
+    }
+
 }
