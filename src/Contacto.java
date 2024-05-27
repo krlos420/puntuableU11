@@ -10,8 +10,6 @@ public class Contacto implements Serializable{
         this.numero = numero;
     }
 
-    public Contacto() {
-    }
     //Getters i setters
 
     public String getNombre() {
@@ -22,9 +20,6 @@ public class Contacto implements Serializable{
         this.nombre = nombre;
     }
 
-    public int getNumero() {
-        return numero;
-    }
 
     public void setNumero(int numero) {
         this.numero = numero;
@@ -32,7 +27,7 @@ public class Contacto implements Serializable{
 
     @Override
     public String toString() {
-        return "nombre= " + nombre + ", numero=" + numero;
+        return "Nombre: " + nombre + ", Numero: " + numero;
     }
     public static Contacto consultarContacto(ArrayList<Contacto> contactos, String nombre) {
         for (Contacto contacto : contactos) {
